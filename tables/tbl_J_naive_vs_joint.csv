@@ -1,0 +1,19 @@
+threshold,model,formula,df,AIC,deviance,D2,share_of_joint,R2_marginal,R2_conditional,AUC,dAIC
+50,M0_null,event ~ 1 + (1|species) + (1|province),3,8621.6125581212,8615.6125581212,0,0,0,0.1354,0.6827,214.445890609022
+50,M1n_naive_anom,event ~ anom_z + (1|species) + (1|province),4,8623.08198276666,8615.08198276666,0.006,0.2,5e-04,0.138,0.6834,215.915315254484
+50,M1_climate_only,event ~ clim_change_z + clim_var_z + (1|species) + (1|province),5,8575.35004127698,8565.35004127698,0.583,22.6,0.0609,0.1689,0.6777,168.183373764807
+50,M2_effort_only,event ~ effort_z + (1|species) + (1|province),4,8449.70299081749,8441.70299081749,2.019,78.2,0.1322,0.2987,0.7246,42.5363233053158
+50,M3_additive,event ~ clim_change_z + clim_var_z + effort_z + (1|species) + (1|province),6,8413.51062359901,8401.51062359901,2.485,96.2,0.1654,0.3069,0.7336,6.34395608683735
+50,M4_joint_final,event ~ clim_change_z * effort_z + clim_var_z + (1|species) + (1|province),7,8407.16666751217,8393.16666751217,2.582,100,0.1908,0.3253,0.7312,0
+100,M0_null,event ~ 1 + (1|species) + (1|province),3,8535.76968782027,8529.76968782027,0,0,0,0.1582,0.7036,217.24147931301
+100,M1n_naive_anom,event ~ anom_z + (1|species) + (1|province),4,8537.1998041853,8529.1998041853,0.007,0.3,5e-04,0.161,0.7041,218.671595678044
+100,M1_climate_only,event ~ clim_change_z + clim_var_z + (1|species) + (1|province),5,8487.95314807768,8477.95314807768,0.607,23,0.0631,0.1907,0.6964,169.424939570425
+100,M2_effort_only,event ~ effort_z + (1|species) + (1|province),4,8361.74143213176,8353.74143213176,2.064,78.2,0.1299,0.3199,0.7384,43.2132236245052
+100,M3_additive,event ~ clim_change_z + clim_var_z + effort_z + (1|species) + (1|province),6,8324.64051632728,8312.64051632728,2.546,96.4,0.165,0.3279,0.7462,6.11230782002531
+100,M4_joint_final,event ~ clim_change_z * effort_z + clim_var_z + (1|species) + (1|province),7,8318.52820850726,8304.52820850726,2.641,100,0.1901,0.3446,0.7436,0
+200,M0_null,event ~ 1 + (1|species) + (1|province),3,8450.94330355802,8444.94330355802,0,0,0,0.1784,0.7186,217.944895183067
+200,M1n_naive_anom,event ~ anom_z + (1|species) + (1|province),4,8452.22743320155,8444.22743320155,0.008,0.3,6e-04,0.1815,0.719,219.229024826598
+200,M1_climate_only,event ~ clim_change_z + clim_var_z + (1|species) + (1|province),5,8404.71670634051,8394.71670634051,0.595,22.2,0.061,0.207,0.7106,171.718297965563
+200,M2_effort_only,event ~ effort_z + (1|species) + (1|province),4,8274.66188257023,8266.66188257023,2.111,78.9,0.1279,0.3408,0.7485,41.6634741952839
+200,M3_additive,event ~ clim_change_z + clim_var_z + effort_z + (1|species) + (1|province),6,8239.16513009306,8227.16513009306,2.579,96.4,0.1623,0.3477,0.7558,6.16672171811115
+200,M4_joint_final,event ~ clim_change_z * effort_z + clim_var_z + (1|species) + (1|province),7,8232.99840837495,8218.99840837495,2.676,100,0.1869,0.3623,0.7531,0
