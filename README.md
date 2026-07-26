@@ -88,7 +88,10 @@ figures/
   main/         Fig1–Fig3 + FigS1 (DHARMa)
   alternative/  FigA1–FigA5 — alternative visual encodings of the same results
   future/       FigM1–FigM4 — CMIP6 scenario projections, mechanistic vs machine learning
-docs/       REPORT_en.md (full research report), REPORT_zh.md (Chinese version)
+docs/       MANUSCRIPT.md      submission-ready manuscript (33 Crossref-verified references)
+            AUDIT_REVIEW_zh.md critical internal review before submission
+            REPORT_en.md       full research report
+            REPORT_zh.md       Chinese version
 ```
 
 Every figure is provided as **PNG (450 dpi) + vector PDF + editable PPTX + source-data CSV**.
@@ -108,6 +111,7 @@ Rscript --no-init-file code/122_final_diagnostics.R               # DHARMa diagn
 Rscript --no-init-file code/123_final_figures.R                   # Fig1-3
 Rscript --no-init-file code/124_alternative_visualisations.R      # FigA1-A5
 Rscript --no-init-file code/126_future_maps_mech_vs_ml.R          # FigM1-M4
+Rscript --no-init-file code/127_velocity_novelty_operators.R      # velocity / novelty operators
 ```
 
 Scripts `81`–`90` build the corrected risk sets and effort/climate panels upstream; they
