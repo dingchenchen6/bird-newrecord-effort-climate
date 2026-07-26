@@ -54,15 +54,20 @@ suppressPackageStartupMessages({
   library(data.table); library(sf); library(terra); library(arrow)
 })
 options(warn = 1)
+
+# External archive paths come from config.R at the repository root; edit that file (or set
+# the corresponding environment variables) to point at your own copies.
+if (file.exists("config.R")) source("config.R") else
+  stop("config.R not found. Run this script from the repository root.")
+
 sf::sf_use_s2(FALSE)
 
 V2  <- normalizePath(".", mustWork = TRUE)
 RB  <- file.path(V2, "analysis_rebuilt")
 OUT <- file.path(V2, "analysis_species_specific")
-WC  <- file.path("/Users/dingchenchen/Documents/New project",
-                 "bird_new_record_full_risk_100pct_20260724/data_external/worldclim_10m/unzipped")
-DYN <- "/Users/dingchenchen/Documents/New project/bird_dynamic_occupancy_analysis"
-BOTW <- "/Users/dingchenchen/Documents/NEW DISTRIBUTION RECORDS/BOTW_clean.gpkg"
+WC  <- path.expand(CFG$WORLDCLIM_10M)
+GRID_RDS <- path.expand(CFG$GRID_100KM)
+BOTW <- path.expand(CFG$BOTW)
 log <- function(...) cat(sprintf("[110 %s] ", format(Sys.time(), "%H:%M:%S")), ..., "\n")
 
 TBASE_FROM <- 1980L; TBASE_TO <- 2000L      # 温度基线 / temperature baseline
@@ -150,7 +155,7 @@ PBASE <- list(prec_annual = terra::app(bpr, fun = sum, na.rm = TRUE),
 log("降水基线(WorldClim 1970-2000)构建完成")
 
 # ---- 3. 提取 / extraction over grids and species ranges ----
-grid <- st_make_valid(st_transform(readRDS(file.path(DYN, "data/derived_v2/china_grid_100km_v2.rds")), 4326))
+grid <- st_make_valid(st_transform(readRDS(GRID_RDS), 4326))
 g2p  <- fread(file.path(RB, "data", "grid_province_lookup.csv"), encoding = "UTF-8")
 grid <- grid[grid$grid_cell %in% g2p$grid_cell, ]
 d0   <- as.data.table(read_parquet(file.path(OUT, "data", "model_thr50.parquet")))

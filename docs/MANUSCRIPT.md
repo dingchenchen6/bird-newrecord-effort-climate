@@ -99,7 +99,7 @@ information, and project where new records are expected to arise.
 ### Both processes operate, in unequal measure
 
 The analysis set comprises 182,485 species × province × year exposures, 655 first-record events,
-394 species and 32 provincial units over 2002–2024, drawn from a curated, peer-reviewed
+394 species and 31 provincial units over 2002–2024, drawn from a curated, peer-reviewed
 compilation of Chinese provincial new bird records [25]. Baseline annual hazard is 0.272%.
 
 Survey effort carries a hazard ratio of 1.788 per standard deviation (95% CI 1.639–1.951,
@@ -334,7 +334,11 @@ conventional choice, truncates the lower tail of the effort distribution and her
 genuine events. Taiwan and Macau were excluded on recorded effort density per unit area
 (0.13 records km⁻² for Taiwan against 29.7 for Beijing), indicating source-coverage gaps rather
 than low activity; Hong Kong, whose low absolute counts reflect its small area (16.5 records
-km⁻²), was retained.
+km⁻²), was retained in the effort panel and risk set. It does not, however, enter the
+fitted models: at 1,100 km² Hong Kong is smaller than a single 100-km analysis grid cell, so no
+cell is assigned to it by largest-overlap and it acquires no grid-derived climate value. It
+contributes no events, so estimates are unaffected, and the analysis set comprises 31 provincial
+units.
 
 ### Climate data and the species-referenced gradient
 

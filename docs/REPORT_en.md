@@ -38,7 +38,7 @@ presence, **plus forced inclusion of every observed event**, restricted to the u
 SDM-modelled species. SDM binarisation thresholds of **50 / 100 / 200** are carried as a
 sensitivity.
 
-Final modelling set (threshold 50): **182,485 rows, 655 events, 394 species, 32 provincial
+Final modelling set (threshold 50): **182,485 rows, 655 events, 394 species, 31 provincial
 units**; event rate 0.359 %.
 
 ### 2.2 Scope decisions
@@ -56,6 +56,8 @@ area**, not absolute counts:
 | Hong Kong | 18,142 | 1,100 km² | **16.5 km⁻²** | retained — low counts reflect small area |
 | Taiwan | 4,836 | 36,000 km² | **0.13 km⁻²** | excluded — source-coverage gap |
 | Macau | data in 2 of 23 years | — | — | excluded |
+
+**Note.** Hong Kong is retained in the effort panel and risk set on density grounds but does not enter the fitted models: at 1,100 km² it is smaller than a single 100-km analysis grid cell, so no cell is assigned to it by largest-overlap and it acquires no grid-derived climate value. It contributes no events, so the estimates are unaffected; the analysis set therefore comprises 31 provincial units.
 
 ### 2.3 Survey effort
 

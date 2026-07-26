@@ -45,15 +45,21 @@
 suppressPackageStartupMessages({
   library(data.table); library(arrow); library(terra); library(sf); library(glmmTMB)
 })
-options(warn = 1); sf::sf_use_s2(FALSE)
+options(warn = 1)
+
+# External archive paths come from config.R at the repository root; edit that file (or set
+# the corresponding environment variables) to point at your own copies.
+if (file.exists("config.R")) source("config.R") else
+  stop("config.R not found. Run this script from the repository root.")
+sf::sf_use_s2(FALSE)
 
 V2  <- normalizePath(".", mustWork = TRUE)
 RB  <- file.path(V2, "analysis_rebuilt")
 SS  <- file.path(V2, "analysis_species_specific")
 OUT <- file.path(V2, "analysis_final")
 TAB <- file.path(OUT, "tables")
-DYN <- "/Users/dingchenchen/Documents/New project/bird_dynamic_occupancy_analysis"
-BOTW <- "/Users/dingchenchen/Documents/NEW DISTRIBUTION RECORDS/BOTW_clean.gpkg"
+GRID_RDS <- path.expand(CFG$GRID_100KM)
+BOTW <- path.expand(CFG$BOTW)
 log <- function(...) cat(sprintf("[127 %s] ", format(Sys.time(), "%H:%M:%S")), ..., "\n")
 
 W <- 15L; BASE_FROM <- 1980L; BASE_TO <- 2000L; YR_FROM <- 2002L; YR_TO <- 2024L
@@ -104,7 +110,7 @@ log("速度 km/yr 分位: ", paste(round(quantile(values(vel), c(.05,.5,.95), na
 log("新颖度 SD 分位:  ", paste(round(quantile(values(nov), c(.05,.5,.95), na.rm = TRUE), 2), collapse = " / "))
 
 # ---- 4. 提取到省与物种分布区 / extract ----
-grid <- st_make_valid(st_transform(readRDS(file.path(DYN, "data/derived_v2/china_grid_100km_v2.rds")), 4326))
+grid <- st_make_valid(st_transform(readRDS(GRID_RDS), 4326))
 g2p  <- fread(file.path(RB, "data", "grid_province_lookup.csv"), encoding = "UTF-8")
 grid <- grid[grid$grid_cell %in% g2p$grid_cell, ]
 d0   <- as.data.table(read_parquet(file.path(SS, "data", "model_thr50.parquet")))

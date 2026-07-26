@@ -43,6 +43,12 @@ suppressPackageStartupMessages({
   library(data.table); library(arrow); library(sf); library(terra)
 })
 options(warn = 1)
+
+# External archive paths come from config.R at the repository root; edit that file (or set
+# the corresponding environment variables) to point at your own copies.
+if (file.exists("config.R")) source("config.R") else
+  stop("config.R not found. Run this script from the repository root.")
+
 sf::sf_use_s2(FALSE)
 
 V2  <- normalizePath(".", mustWork = TRUE)
@@ -50,8 +56,8 @@ RB  <- file.path(V2, "analysis_rebuilt")
 SS  <- file.path(V2, "analysis_species_specific")
 OUT <- file.path(V2, "analysis_final")
 for (d in c("data", "tables", "figures", "logs")) dir.create(file.path(OUT, d), recursive = TRUE, showWarnings = FALSE)
-DYN  <- "/Users/dingchenchen/Documents/New project/bird_dynamic_occupancy_analysis"
-BOTW <- "/Users/dingchenchen/Documents/NEW DISTRIBUTION RECORDS/BOTW_clean.gpkg"
+GRID_RDS <- path.expand(CFG$GRID_100KM)
+BOTW <- path.expand(CFG$BOTW)
 log <- function(...) cat(sprintf("[120 %s] ", format(Sys.time(), "%H:%M:%S")), ..., "\n")
 
 INDS <- c("tavg_annual", "tavg_winter", "tmax_warm", "tmin_cold")
@@ -64,7 +70,7 @@ sfp <- file.path(OUT, "data", "panel_full_species.csv")
 if (!file.exists(gf) || !file.exists(sfp)) {
   allstk <- terra::rast(file.path(SS, "data", "_clim110_stacks.tif"))
   key <- tstrsplit(names(allstk), "\\|"); ind_of <- key[[1]]; yr_of <- as.integer(key[[2]])
-  grid <- st_make_valid(st_transform(readRDS(file.path(DYN, "data/derived_v2/china_grid_100km_v2.rds")), 4326))
+  grid <- st_make_valid(st_transform(readRDS(GRID_RDS), 4326))
   g2p  <- fread(file.path(RB, "data", "grid_province_lookup.csv"), encoding = "UTF-8")
   grid <- grid[grid$grid_cell %in% g2p$grid_cell, ]
   d0   <- as.data.table(read_parquet(file.path(SS, "data", "model_thr50.parquet")))

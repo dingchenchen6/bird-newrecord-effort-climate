@@ -27,7 +27,7 @@ family = binomial("cloglog")        # discrete-time proportional hazards
 | Climate change × effort | **0.876** | 0.801–0.959 | 3.9 × 10⁻³ |
 
 Intercept −5.906 → baseline annual hazard **0.272 %**.
-n = 182,485 species × province × year rows, 655 events, 394 species, 32 provincial units.
+n = 182,485 species × province × year rows, 655 events, 394 species, 31 provincial units.
 
 **Relative importance** (drop-term contribution to explained deviance, consistent across
 three SDM thresholds): survey effort **78 %**, accumulated climate change **15 %**,
@@ -81,17 +81,23 @@ that is reported as a limitation.
 ## Repository layout
 
 ```
-code/       analysis pipeline (R)
-data/       compact derived panels needed to reproduce the headline model
-tables/     all result tables (model matrix, ladder, importance, diagnostics)
+config.R              paths to external archives (edit or set env vars)
+setup_workspace.R     builds the working layout expected by code/
+tests/smoke_test.R    end-to-end check: packages, inputs, sample sizes, coefficients
+tools/                helper scripts (data-dictionary builder)
+code/                 analysis pipeline (R)
+data/                 derived panels sufficient to reproduce the headline model
+tables/               all result tables (model matrix, ladder, importance, diagnostics)
 figures/
   main/         Fig1–Fig3 + FigS1 (DHARMa)
   alternative/  FigA1–FigA5 — alternative visual encodings of the same results
   future/       FigM1–FigM4 — CMIP6 scenario projections, mechanistic vs machine learning
-docs/       MANUSCRIPT.md      submission-ready manuscript (33 Crossref-verified references)
-            AUDIT_REVIEW_zh.md critical internal review before submission
-            REPORT_en.md       full research report
-            REPORT_zh.md       Chinese version
+docs/       MANUSCRIPT.md       submission-ready manuscript (71 Crossref-verified references)
+            AUDIT_REVIEW_zh.md  critical internal review before submission
+            DATA_DICTIONARY.md  every column of every shipped file
+            ENVIRONMENT.md      R version, package versions, runtime notes
+            REPORT_en.md        full research report
+            REPORT_zh.md        Chinese version
 ```
 
 Every figure is provided as **PNG (450 dpi) + vector PDF + editable PPTX + source-data CSV**.
@@ -104,20 +110,44 @@ PowerPoint shape. (SVG versions are omitted from the repository because the map 
 ## Reproduction
 
 ```bash
-Rscript --no-init-file code/110_build_expanded_climate_panels.R   # climate indicator rasters -> panels
-Rscript --no-init-file code/120_final_build_panels.R              # full 1980-2024 series + components
-Rscript --no-init-file code/121_final_model_matrix.R              # model matrix, ladder, importance
-Rscript --no-init-file code/122_final_diagnostics.R               # DHARMa diagnostics
-Rscript --no-init-file code/123_final_figures.R                   # Fig1-3
-Rscript --no-init-file code/124_alternative_visualisations.R      # FigA1-A5
-Rscript --no-init-file code/126_future_maps_mech_vs_ml.R          # FigM1-M4
-Rscript --no-init-file code/127_velocity_novelty_operators.R      # velocity / novelty operators
+git clone https://github.com/dingchenchen6/bird-newrecord-effort-climate
+cd bird-newrecord-effort-climate
+
+Rscript --no-init-file setup_workspace.R    # build the working layout (hard-links, no extra disk)
+Rscript --no-init-file tests/smoke_test.R   # ~2 min: verifies packages, inputs and coefficients
 ```
 
-Scripts `81`–`90` build the corrected risk sets and effort/climate panels upstream; they
-require the source occurrence, SDM and climate archives, which are not redistributed here.
+The smoke test refits the final model from the shipped data and checks it against the published
+values. If it passes, everything below runs.
 
----
+### Self-contained — runs on the data in this repository
+
+| Script | Output |
+|---|---|
+| `code/121_final_model_matrix.R` | model matrix, selection ladder, relative importance (~1.5 h, resumable) |
+| `code/122_final_diagnostics.R` | DHARMa diagnostics + FigS1 (needs the base map for one panel) |
+| `code/123_final_figures.R` | Fig 1–3 |
+| `code/124_alternative_visualisations.R` | FigA1–A5 |
+| `code/128_naive_vs_joint_model_comparison.R` | Table 1 (single-process vs joint models) |
+| `code/126_future_maps_mech_vs_ml.R` | FigM1–M4 — **needs the GS(2019)1822 base map**, see `config.R` |
+
+### Requires external archives
+
+`code/81`, `82`, `83`, `88`, `90`, `110`, `120` and `127` rebuild the analysis from primary
+sources: the CBNR event table, species-distribution-model outputs, the province-year effort
+compilation, CRU TS / WorldClim rasters, BirdLife range polygons and the official base map. These
+are large or third-party licensed and are **not redistributed here**. Point `config.R` at your own
+copies, or set the corresponding environment variables:
+
+```bash
+export CBNR_BOTW=/path/to/BOTW_clean.gpkg
+export CBNR_WORLDCLIM=/path/to/worldclim_10m/unzipped
+CFG_VERBOSE=1 Rscript --no-init-file -e 'source("config.R")'   # report which inputs resolve
+```
+
+Full provenance for every external input is in `config.R`; column definitions for every shipped
+file are in [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md); the verified software
+environment is in [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md).
 
 ## Data sources
 

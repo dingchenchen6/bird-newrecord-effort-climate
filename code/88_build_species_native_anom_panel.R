@@ -26,7 +26,7 @@
 #   Vagrants without a Chinese historical range are excluded, not imputed.
 #
 # Input data / 输入数据:
-#   /Users/dingchenchen/Documents/NEW DISTRIBUTION RECORDS/BOTW_clean.gpkg
+#   CFG$BOTW  (BirdLife range polygons clipped to China; see config.R)
 #     (466 种, sci_name, MULTIPOLYGON, 已裁到中国)
 #   <dyn>/data/external/cru_ts/cru_ts4.09.1901.2024.tmp.dat.nc
 #   SDM derived_inputs/species_year_native_climate.csv  (720 行, 仅用于校验)
@@ -56,13 +56,19 @@ suppressPackageStartupMessages({
   library(data.table); library(sf); library(terra); library(arrow)
 })
 options(warn = 1)
+
+# External archive paths come from config.R at the repository root; edit that file (or set
+# the corresponding environment variables) to point at your own copies.
+if (file.exists("config.R")) source("config.R") else
+  stop("config.R not found. Run this script from the repository root.")
+
 sf::sf_use_s2(FALSE)
 
 V2  <- normalizePath(".", mustWork = TRUE)
 SDM <- normalizePath(file.path(V2, "..", "bird_new_record_hazard_model"), mustWork = TRUE)
 OUT <- file.path(V2, "analysis_rebuilt")
-BOTW <- "/Users/dingchenchen/Documents/NEW DISTRIBUTION RECORDS/BOTW_clean.gpkg"
-CRU  <- "/Users/dingchenchen/Documents/New project/bird_dynamic_occupancy_analysis/data/external/cru_ts/cru_ts4.09.1901.2024.tmp.dat.nc"
+BOTW <- path.expand(CFG$BOTW)
+CRU  <- path.expand(CFG$CRU_TMP)
 log <- function(...) cat(sprintf("[88 %s] ", format(Sys.time(), "%H:%M:%S")), ..., "\n")
 
 BASE_FROM <- 1970L; BASE_TO <- 2000L      # 基线期 / baseline period
