@@ -1,0 +1,4 @@
+run_key,threshold,rows,events,dev_explained_total,pct_effort,pct_clim_change,pct_clim_var,pct_interactions
+imp_thr50,50,182485,655,223.992742522201,77.6,15.4,6.9,4.4
+imp_thr100,100,171353,655,226.822359616774,77.2,15.5,6.8,4.3
+imp_thr200,200,161187,655,227.564910554878,77.9,14.7,6.9,4.3
