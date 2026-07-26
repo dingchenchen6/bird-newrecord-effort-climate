@@ -1,0 +1,13 @@
+threshold,component,pct,comp,ymin,ymax,thr_lab
+50,pct_effort,77.6,Survey effort,0,77.6,SDM threshold 50
+50,pct_clim_change,15.4,Climate change (15-yr),77.6,93,SDM threshold 50
+50,pct_clim_var,6.9,Annual climate variability,93,99.9,SDM threshold 50
+50,pct_interactions,4.4,Climate change x effort,99.9,104.3,SDM threshold 50
+100,pct_effort,77.2,Survey effort,0,77.2,SDM threshold 100
+100,pct_clim_change,15.5,Climate change (15-yr),77.2,92.7,SDM threshold 100
+100,pct_clim_var,6.8,Annual climate variability,92.7,99.5,SDM threshold 100
+100,pct_interactions,4.3,Climate change x effort,99.5,103.8,SDM threshold 100
+200,pct_effort,77.9,Survey effort,0,77.9,SDM threshold 200
+200,pct_clim_change,14.7,Climate change (15-yr),77.9,92.6,SDM threshold 200
+200,pct_clim_var,6.9,Annual climate variability,92.6,99.5,SDM threshold 200
+200,pct_interactions,4.3,Climate change x effort,99.5,103.8,SDM threshold 200
