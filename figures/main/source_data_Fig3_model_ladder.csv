@@ -1,0 +1,22 @@
+run_key,threshold,model,formula,AIC,df,logLik,nobs,events,dAIC,mod_lab
+ladder_thr50,50,N0_null,event ~ 1 + (1|species) + (1|province),8621.6125581212,3,-4307.8062790606,182485,655,226.68201604037,Null
+ladder_thr50,50,N1_effort,event ~ effort_z + (1|species) + (1|province),8449.70299081749,4,-4220.85149540875,182485,655,54.7724487366595,Effort
+ladder_thr50,50,N2_climate,event ~ clim_change_z + clim_var_z + (1|species) + (1|province),8575.35004127698,5,-4282.67502063849,182485,655,180.41949919615,Climate only
+ladder_thr50,50,N3_additive,event ~ clim_change_z + clim_var_z + effort_z + (1|species) + (1|province),8413.51062359901,6,-4200.75531179951,182485,655,18.5800815181792,Additive
+ladder_thr50,50,N4_intChange,event ~ clim_change_z * effort_z + clim_var_z + (1|species) + (1|province),8407.16666751217,7,-4196.58333375609,182485,655,12.23612543134,+ Climate x effort
+ladder_thr50,50,N5_intBoth,event ~ clim_change_z * effort_z + clim_var_z * effort_z + (1|species) + (1|province),8407.619815599,8,-4195.8099077995,182485,655,12.68927351817,+ Both interactions
+ladder_thr50,50,N6_static,event ~ b_static_z + clim_change_z * effort_z + clim_var_z * effort_z + (1|species) + (1|province),8394.93054208083,9,-4188.46527104041,182485,655,0,+ Static mismatch
+ladder_thr100,100,N0_null,event ~ 1 + (1|species) + (1|province),8535.76968782027,3,-4264.88484391013,171353,655,234.30656040804,Null
+ladder_thr100,100,N1_effort,event ~ effort_z + (1|species) + (1|province),8361.74143213176,4,-4176.87071606588,171353,655,60.2783047195299,Effort
+ladder_thr100,100,N2_climate,event ~ clim_change_z + clim_var_z + (1|species) + (1|province),8487.95314807768,5,-4238.97657403884,171353,655,186.490020665451,Climate only
+ladder_thr100,100,N3_additive,event ~ clim_change_z + clim_var_z + effort_z + (1|species) + (1|province),8324.64051632728,6,-4156.32025816364,171353,655,23.17738891505,Additive
+ladder_thr100,100,N4_intChange,event ~ clim_change_z * effort_z + clim_var_z + (1|species) + (1|province),8318.52820850726,7,-4152.26410425363,171353,655,17.0650810950301,+ Climate x effort
+ladder_thr100,100,N5_intBoth,event ~ clim_change_z * effort_z + clim_var_z * effort_z + (1|species) + (1|province),8318.94732820349,8,-4151.47366410175,171353,655,17.4842007912612,+ Both interactions
+ladder_thr100,100,N6_static,event ~ b_static_z + clim_change_z * effort_z + clim_var_z * effort_z + (1|species) + (1|province),8301.46312741223,9,-4141.73156370612,171353,655,0,+ Static mismatch
+ladder_thr200,200,N0_null,event ~ 1 + (1|species) + (1|province),8450.94330355802,3,-4222.47165177901,161187,655,233.898218262561,Null
+ladder_thr200,200,N1_effort,event ~ effort_z + (1|species) + (1|province),8274.66188257023,4,-4133.33094128512,161187,655,57.6167972747699,Effort
+ladder_thr200,200,N2_climate,event ~ clim_change_z + clim_var_z + (1|species) + (1|province),8404.71670634051,5,-4197.35835317026,161187,655,187.67162104505,Climate only
+ladder_thr200,200,N3_additive,event ~ clim_change_z + clim_var_z + effort_z + (1|species) + (1|province),8239.16513009306,6,-4113.58256504653,161187,655,22.1200447976007,Additive
+ladder_thr200,200,N4_intChange,event ~ clim_change_z * effort_z + clim_var_z + (1|species) + (1|province),8232.99840837495,7,-4109.49920418747,161187,655,15.9533230794896,+ Climate x effort
+ladder_thr200,200,N5_intBoth,event ~ clim_change_z * effort_z + clim_var_z * effort_z + (1|species) + (1|province),8233.37839300314,8,-4108.68919650157,161187,655,16.3333077076804,+ Both interactions
+ladder_thr200,200,N6_static,event ~ b_static_z + clim_change_z * effort_z + clim_var_z * effort_z + (1|species) + (1|province),8217.04508529546,9,-4099.52254264773,161187,655,0,+ Static mismatch
